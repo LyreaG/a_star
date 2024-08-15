@@ -1,7 +1,11 @@
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+
+
         // Create nodes with coordinates
         Node start = new Node("Start", 0, 0);
         Node a = new Node("A", 1, 2);
@@ -13,6 +17,7 @@ public class Main {
         Node g = new Node("G", 4, 1);
         Node goal = new Node("Goal", 3, 3);
 
+        HashSet<Node> nodes = new HashSet<>(Arrays.asList(start, a, b, c, d, e, f, g, goal));
         // Define neighbors and edge costs (bidirectional)
         start.neighbors.put(a, 2);
         start.neighbors.put(b, 4);
@@ -47,6 +52,16 @@ public class Main {
         // Find path
         List<Node> path = AStarAlgorithm.findPath(start, goal);
 
+        printPath(path);
+
+        nodes.forEach(Node::reset);
+
+        path = DijkstraAlgorithm.findShortestPath(start, goal);
+
+        printPath(path);
+    }
+
+    private static void printPath(List<Node> path) {
         if (path.isEmpty()) {
             System.out.println("No path found.");
         } else {

@@ -2,7 +2,7 @@ import java.util.*;
 
 public class AStarAlgorithm {
     public static List<Node> findPath(Node start, Node goal) {
-        PriorityQueue<Node> openSet = new PriorityQueue<>();
+        PriorityQueue<Node> openSet = new PriorityQueue<>(Comparator.comparingInt(n -> n.hCost));
         Set<Node> closedSet = new HashSet<>();
 
         // Initialize start node
@@ -50,13 +50,10 @@ public class AStarAlgorithm {
         return Collections.emptyList(); // Path not found
     }
 
-    private static List<Node> reconstructPath(Node current) {
+    private static List<Node> reconstructPath(Node end) {
         List<Node> path = new ArrayList<>();
-        Node node = current;
-
-        while (node != null) {
+        for (Node node = end; node != null; node = node.parent) {
             path.add(node);
-            node = node.parent;
         }
         Collections.reverse(path);
         return path;

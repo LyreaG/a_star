@@ -1,4 +1,5 @@
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Node implements Comparable<Node> {
     String name;
@@ -18,8 +19,19 @@ public class Node implements Comparable<Node> {
         this.parent = null;
     }
 
+    public void reset() {
+        this.gCost = Integer.MAX_VALUE; // Reset cost to infinity
+        this.hCost = 0; // Reset heuristic
+        this.parent = null; // Reset parent
+    }
+
     public int fCost() {
         return gCost + hCost;
+    }
+
+    public void addNeighbor(Node neighbor, int cost) {
+        neighbors.put(neighbor, cost);
+        //neighbor.neighbors.put(this, cost);
     }
 
     @Override
